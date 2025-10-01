@@ -3,7 +3,7 @@
 //
 
 import GXCoreBL
-#if os(iOS)
+#if canImport(FirebaseAnalytics)
 import FirebaseAnalytics
 import FirebaseCore
 #endif
@@ -21,7 +21,7 @@ public class GXFirebaseAnalyticsService: NSObject {
 	
 	// MARK: Private Helpers
 	
-#if os(iOS)
+#if canImport(FirebaseAnalytics)
 	private struct Constants {
 		static let eventNameMaxLength = 40
 	}
@@ -62,7 +62,7 @@ public class GXFirebaseAnalyticsService: NSObject {
 extension GXFirebaseAnalyticsService: GXAnalyticsService {
 	
 	public func trackView(_ name: String) {
-#if os(iOS)
+#if canImport(FirebaseAnalytics)
 		Analytics.logEvent(AnalyticsEventScreenView, parameters: [
 			AnalyticsParameterScreenName: name,
 			AnalyticsParameterScreenClass: "gx_view"
@@ -77,7 +77,7 @@ extension GXFirebaseAnalyticsService: GXAnalyticsService {
 	}
 	
 	public func trackEventName(_ name: String, category: String, label: String?, value: NSNumber?, customParameters: [String : String]?) {
-#if os(iOS)
+#if canImport(FirebaseAnalytics)
 		let eventName = eventNameByReplacingInvalidCharacters(eventName: name)
 		guard !eventName.isEmpty else {
 			return
@@ -108,7 +108,7 @@ extension GXFirebaseAnalyticsService: GXAnalyticsService {
 	}
 	
 	public func trackEventName(_ name: String, from object: GXSDObjectLocator, sender: Any?) {
-#if os(iOS)
+#if canImport(FirebaseAnalytics)
 		GXAnalyticsServiceHelper.defaultAnalyticsService(self, trackEventName: name, from: object, sender: sender)
 #else
 		self.logFirebaseAnalyticsUnsupported()
@@ -116,7 +116,7 @@ extension GXFirebaseAnalyticsService: GXAnalyticsService {
 	}
 	
 	public func setUserId(_ userId: String) {
-#if os(iOS)
+#if canImport(FirebaseAnalytics)
 		Analytics.setUserID(userId)
 #else
 		self.logFirebaseAnalyticsUnsupported()
@@ -124,7 +124,7 @@ extension GXFirebaseAnalyticsService: GXAnalyticsService {
 	}
 	
 	public func setCommerceTrackerId(_ trackerId: String) {
-#if os(iOS)
+#if canImport(FirebaseAnalytics)
 		guard GXLog.isLogEnabled() else {
 			return
 		}
@@ -135,7 +135,7 @@ extension GXFirebaseAnalyticsService: GXAnalyticsService {
 	}
 	
 	public func trackPurchaseId(_ purchaseId: String, affiliation: String, revenue: NSNumber, tax: NSNumber, shipping: NSNumber, currencyCode: String) {
-#if os(iOS)
+#if canImport(FirebaseAnalytics)
 		Analytics.logEvent(AnalyticsEventPurchase, parameters: [
 			AnalyticsParameterTransactionID: purchaseId,
 			AnalyticsParameterAffiliation: affiliation,
@@ -150,7 +150,7 @@ extension GXFirebaseAnalyticsService: GXAnalyticsService {
 	}
 	
 	public func trackPurchasedItem(_ productId: String, purchaseId: String, name: String, category: String, price: NSNumber, quantity: NSNumber, currencyCode: String) {
-#if os(iOS)
+#if canImport(FirebaseAnalytics)
 		Analytics.logEvent(AnalyticsEventAddToCart, parameters: [
 			AnalyticsParameterItemID: productId,
 			AnalyticsParameterTransactionID: purchaseId,

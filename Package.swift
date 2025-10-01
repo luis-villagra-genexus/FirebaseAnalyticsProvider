@@ -1,11 +1,11 @@
 // swift-tools-version: 5.9
 import PackageDescription
 
-let GX_FC_LAST_VERSION = Version("3.0.0-beta")
+let GX_FC_LAST_VERSION = Version("4.0.0-beta")
 
 let package = Package(
 	name: "FirebaseProviders",
-	platforms: [.iOS(.v15), .tvOS("18.0"), .watchOS(.v10)],
+	platforms: [.iOS(.v15), .tvOS("18.0"), .watchOS(.v10), .visionOS("2.0")],
 	products: [
 		.library(name: "FirebaseAnalyticsProvider", targets: ["FirebaseAnalyticsProvider"]),
 		.library(name: "FirebaseCrashlyticsProvider", targets: ["FirebaseCrashlyticsProvider"]),
@@ -15,7 +15,7 @@ let package = Package(
 		.package(url: "https://github.com/GeneXus-SwiftPackages/GXCoreBL.git", .upToNextMajor(from: GX_FC_LAST_VERSION)),
 		.package(url: "https://github.com/GeneXus-SwiftPackages/GXCoreModule_Common_Analytics.git", .upToNextMajor(from: GX_FC_LAST_VERSION)),
 		.package(url: "https://github.com/GeneXus-SwiftPackages/GXCoreModule_SD_RemoteConfig.git", .upToNextMajor(from: GX_FC_LAST_VERSION)),
-		.package(url: "https://github.com/firebase/firebase-ios-sdk.git", .upToNextMajor(from: "10.24.0"))
+		.package(url: "https://github.com/firebase/firebase-ios-sdk.git", .upToNextMajor(from: "12.3.0"))
 	],
 	targets: [
 		.target(name: "FirebaseAnalyticsProvider",

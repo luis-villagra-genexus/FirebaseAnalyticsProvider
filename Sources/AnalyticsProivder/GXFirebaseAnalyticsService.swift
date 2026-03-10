@@ -164,4 +164,22 @@ extension GXFirebaseAnalyticsService: GXAnalyticsService {
 		self.logFirebaseAnalyticsUnsupported()
 #endif
 	}
+	
+	public func setDataCollectionBehavior(_ behavior: GXApplicationModel.GXAnalyticsDataCollectionBehaviorType) {
+#if canImport(FirebaseAnalytics)
+		switch behavior {
+		case .fullyDisabled:
+			Analytics.setAnalyticsCollectionEnabled(false)
+
+		case .enabled:
+			Analytics.setAnalyticsCollectionEnabled(true)
+
+		case .implicitDisabled:
+			//Firebase Analytics cannot disable automatic events without also disabling manual ones
+			Analytics.setAnalyticsCollectionEnabled(true)
+		}
+#else
+		self.logFirebaseAnalyticsUnsupported()
+#endif
+	}
 }
